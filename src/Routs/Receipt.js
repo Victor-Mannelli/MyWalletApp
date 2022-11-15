@@ -24,11 +24,11 @@ export default function Receipt() {
 				</ScreenFooter>
 			</Screen>
 			<Footer>
-				<div>
+				<div onClick={()=> navigate("/entrance")}>
 					<BsPlusCircleDotted />
 					<p>New Entrance</p>
 				</div>
-				<div>
+				<div onClick={()=> navigate("/expense")}>
 					<BsDashCircleDotted />
 					<p>New Expenses</p>
 				</div>
@@ -95,7 +95,7 @@ const ScreenFooter = styled.div`
 `;
 const Header = styled.div`
 	display: flex;
-	width: 65%;
+	width: 70%;
 	height: 50px;
 	justify-content: space-between;
 	align-items: center;
