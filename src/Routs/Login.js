@@ -32,7 +32,7 @@ export default function Login() {
                     type="password"
                     onChange={(e) => setPassword(e.target.value)}
                 />
-				<button type="submit"> Log in </button>
+				<button type="submit">Log in</button>
 			</LoginForm>
 			<p onClick={() => navigate("/registration")}>First Time? Signup!</p>
 		</LoginPage>

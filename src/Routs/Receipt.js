@@ -4,15 +4,18 @@ import {
 	BsDashCircleDotted,
 	BsDoorOpenFill,
 } from "react-icons/bs";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 export default function Receipt() {
-    const navigate = useNavigate();
+	const navigate = useNavigate();
 	return (
 		<ReceiptPage>
 			<Header>
 				<h1>Olá Fulano</h1>
-				<BsDoorOpenFill style={{cursor: "pointer"}} onClick={() => navigate("/")}/>
+				<BsDoorOpenFill
+					style={{ cursor: "pointer" }}
+					onClick={() => navigate("/")}
+				/>
 			</Header>
 			<Screen>
 				<ScreenFooter>
@@ -65,9 +68,9 @@ const Footer = styled.div`
 	width: 70%;
 	padding: 15px 0;
 	div {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
 
 		width: 100%;
 		height: 100px;
@@ -91,9 +94,9 @@ const ScreenFooter = styled.div`
 	color: var(--darkmode);
 `;
 const Header = styled.div`
-    display: flex;
-    width: 65%;
-    height: 50px;
-    justify-content: space-between;
-    align-items: center;
+	display: flex;
+	width: 65%;
+	height: 50px;
+	justify-content: space-between;
+	align-items: center;
 `;
