@@ -1,23 +1,28 @@
-import { useState } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-import axios from "axios"
-
-export default function Login() {
+import { useState } from "react";
+import { useNavigate } from "react-router-dom" 
+export default function Register(){
+    const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [confirmPassword, setConfirmPassword] = useState("")
     const navigate = useNavigate();
 
     function HandleSubmit(){
-        // axios.post( adress? , {email, password})
-        // .then(e => console.log(e))
-        // .catch(error => console.log(error))
+
     }
 
-	return (
+    return (
 		<LoginPage>
 			<h1> My Wallet </h1>
 			<LoginForm onSubmit={HandleSubmit}>
+                <input
+                    required
+                    placeholder="Name"
+                    name="name"
+                    type="text"
+                    onChange={(e) => setName(e.target.value)}
+                />
 				<input 
                     required 
                     placeholder="Email" 
@@ -32,9 +37,16 @@ export default function Login() {
                     type="password"
                     onChange={(e) => setPassword(e.target.value)}
                 />
-				<button type="submit"> Log in </button>
+				<input 
+                    required 
+                    placeholder="Confirm Password" 
+                    name="password confirmation"
+                    type="password"
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+				<button type="submit"> Register </button>
 			</LoginForm>
-			<p onClick={() => navigate("/registration")}>First Time? Signup!</p>
+			<p onClick={() => navigate("/")}>First Time? Register now!</p>
 		</LoginPage>
 	);
 }
@@ -88,3 +100,4 @@ const LoginForm = styled.form`
         }
 	}
 `;
+
