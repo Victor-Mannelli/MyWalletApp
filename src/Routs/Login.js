@@ -21,7 +21,8 @@ export default function Login() {
 					autoClose: 500,
 					transition: Slide
 				});
-				localStorage.setItem("token", e.data.token);
+				localStorage.setItem("token", e.data.token, e.data.name);
+				localStorage.setItem("username", e.data.user.name);
 				navigate("/receipt")
 			})
 			.catch((e) =>
@@ -31,7 +32,6 @@ export default function Login() {
 				})
 			);
 	}
-
 	return (
 		<LoginPage>
 			<h1> My Wallet </h1>

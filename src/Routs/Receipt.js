@@ -12,7 +12,7 @@ import Transaction from "../transaction";
 export default function Receipt() {
 	const navigate = useNavigate();
 	const [transactions, setTransactions] = useState([]);
-	const [current, setCurrent] = useState(0)
+	const username = localStorage.getItem("username")
 
 	useEffect(() => {
 		axios
@@ -20,29 +20,33 @@ export default function Receipt() {
 			.then((e) => setTransactions(e.data))
 			.catch((e) => console.log(e));
 
-		let total = 0;
-		transactions.forEach(e => {
-			if (e.type === "entrance") {
-				total+= Number(e.price)
-			} else {
-				total-= Number(e.price)
-			}		
-		})
-		setCurrent(total.toFixed(2))
-
-	// eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
+	let total = 0;
+	transactions.forEach((e) => {
+		if (e.type === "entrance") {
+			total += Number(e.price);
+		} else {
+			total -= Number(e.price);
+		}
+	});
+	const current = total.toLocaleString("en-US", {
+		style: "currency",
+		currency: "USD",
+	});
+
 	return (
 		<ReceiptPage>
 			<Header>
-				<h1>Olá Fulano</h1>
+				<h1>Olá {username}</h1>
 				<BsDoorOpenFill
 					style={{ cursor: "pointer" }}
 					onClick={() => navigate("/")}
 				/>
 			</Header>
 			<Screen>
-				<div>
+				<ScreenReceipt>
 					{transactions.lenght === 0 ? (
 						<p> There are no records of any transactions</p>
 					) : (
@@ -55,10 +59,15 @@ export default function Receipt() {
 							/>
 						))
 					)}
-				</div>
+				</ScreenReceipt>
 				<ScreenFooter>
 					<h2> Balance </h2>
-					<h2 style={current > 0 ? {color: "#03AC00"} : {color: "#C70000"}}> {transactions.lenght === 0 ? "Total" : current} </h2>
+					<h2
+						style={!current.includes("-") ? { color: "#03AC00" } : { color: "#C70000" }}
+					>
+						{" "}
+						{transactions.lenght === 0 ? "Total" : current}{" "}
+					</h2>
 				</ScreenFooter>
 			</Screen>
 			<Footer>
@@ -105,7 +114,11 @@ const Screen = styled.div`
 	background-color: lightgray;
 	height: 70%;
 	width: 80%;
-	padding: 15px 15px 50px 15px;
+	padding: 15px;
+`;
+const ScreenReceipt = styled.div`
+	overflow: auto;
+	height: 93%;
 `;
 const ScreenFooter = styled.div`
 	position: absolute;
