@@ -1,28 +1,53 @@
 import styled from "styled-components";
+import axios from "axios";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
+import { GiReturnArrow } from "react-icons/gi";
+import { Slide, toast } from "react-toastify";
+import CurrencyInput from "../CurrencyInput";
 
 export default function Expense() {
-	const [description, setDescription] = useState();
-	const [price, setPrice] = useState();
+	const [price, setPrice] = useState("");
+	const [description, setDescription] = useState("");
 	const navigate = useNavigate();
 
-	function HandleSubmit() {
-		navigate("/receipt")
+	function HandleSubmit(e) {
+		e.preventDefault();
+		const transition = { price, description };
+		axios
+			.post("http://localhost:5000/expense", transition)
+			.then((e) => {
+				toast.success(e.data.message, {
+					position: "top-center",
+					theme: "dark",
+					autoClose: 500,
+					transition: Slide,
+				});
+				navigate("/receipt");
+			})
+			.catch((e) =>
+				toast.error(e.response.data[0], {
+					position: "top-center",
+					theme: "dark",
+				})
+			);
 	}
-
 	return (
 		<ExpensesPage>
 			<header>
 				<h1>New Expense</h1>
+				<GiReturnArrow
+					style={{ cursor: "pointer" }}
+					onClick={() => navigate("/receipt")}
+				/>
 			</header>
 			<ExpensesForm onSubmit={HandleSubmit}>
-				<input
+				<CurrencyInput
 					required
-					placeholder="Price"
-					type="number"
+					placeholder="$0.00"
+					type="text"
 					name="price"
-					onChange={(e) => setPrice(e.target.value)}
+					onChange={(e) => setPrice(e.target.value.replace(/[$,]/g, ""))}
 				/>
 				<input
 					required
@@ -39,15 +64,16 @@ export default function Expense() {
 const ExpensesPage = styled.div`
 	display: flex;
 	flex-direction: column;
-    align-items: center;
+	align-items: center;
 	width: 100%;
 	height: 100vh;
 	background-color: var(--darkmode);
 	header {
 		display: flex;
 		align-items: center;
+		justify-content: space-between;
 		height: 100px;
-        width: 80%;
+		width: 80%;
 		color: white;
 		font-size: 30px;
 	}
@@ -55,9 +81,9 @@ const ExpensesPage = styled.div`
 const ExpensesForm = styled.form`
 	display: flex;
 	flex-direction: column;
-    align-items: center;
-    width: 100%;
-    input {
+	align-items: center;
+	width: 100%;
+	input {
 		width: 80%;
 		height: 58px;
 		border-radius: 5px;
