@@ -5,6 +5,7 @@ import Receipt from "./Routs/Receipt"
 import Register from "./Routs/Register"
 import Entrance from "./Routs/Entrance"
 import Expense from "./Routs/Expense"
+import { ToastContainer } from "react-toastify"
 
 export default function App() {
 	return (
@@ -17,6 +18,7 @@ export default function App() {
         <Route path="/expense" element={<Expense />} />
       </Routes>
       <GlobalStyle />
+      <ToastContainer />
     </BrowserRouter>
   )
 }
