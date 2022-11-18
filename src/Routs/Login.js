@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { Slide, toast } from "react-toastify";
 import styled from "styled-components";
 import axios from "axios";
 
@@ -14,19 +14,21 @@ export default function Login() {
 		const user = { email, password };
 		axios
 			.post("http://localhost:5000/login", user)
-			.then((e) =>
-				toast.success(e.response.data.message, {
+			.then((e) => {
+				toast.success(e.data.message, {
 					position: "top-center",
 					theme: "dark",
-				})
-			)
+					autoClose: 500,
+					transition: Slide
+				});
+				localStorage.setItem("token", e.data.token);
+				navigate("/receipt")
+			})
 			.catch((e) =>
 				toast.error(e.response.data.message, {
 					position: "top-center",
 					theme: "dark",
-				}),
-				console.log(e),
-				// localStorage.setItem(e.data.token)
+				})
 			);
 	}
 
