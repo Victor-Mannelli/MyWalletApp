@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import axios from "axios";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { GiReturnArrow } from "react-icons/gi";
 import { Slide, toast } from "react-toastify";
 import CurrencyInput from "../CurrencyInput";
@@ -9,13 +9,20 @@ import CurrencyInput from "../CurrencyInput";
 export default function Entrance() {
 	const [price, setPrice] = useState("");
 	const [description, setDescription] = useState("");
+	const { type } = useParams()
 	const navigate = useNavigate();
+	
+	useEffect(() => {
+		if (type !== "entrance" && type !== "expense") navigate("/receipt")
 
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
+	
 	function HandleSubmit(e) {
 		e.preventDefault();
-		const transition = { price, description };
+		const transition = { price, description, type};
 		axios
-			.post("http://localhost:5000/entrance", transition)
+			.post("http://localhost:5000/transactions", transition)
 			.then((e) => {
 				toast.success(e.data.message, {
 					position: "top-center",
@@ -33,15 +40,15 @@ export default function Entrance() {
 			);
 	}
 	return (
-		<EntrancePage>
+		<TransactionPage>
 			<header>
-				<h1>New Entrance</h1>
+				<h1>New {type}</h1>
 				<GiReturnArrow
 					style={{ cursor: "pointer" }}
 					onClick={() => navigate("/receipt")}
 				/>
 			</header>
-			<EntranceForm onSubmit={HandleSubmit}>
+			<TransactionForm onSubmit={HandleSubmit}>
 				<CurrencyInput
 					required
 					placeholder="$0.00"
@@ -56,12 +63,12 @@ export default function Entrance() {
 					name="description"
 					onChange={(e) => setDescription(e.target.value)}
 				/>
-				<button type="submit">Save Entrance</button>
-			</EntranceForm>
-		</EntrancePage>
+				<button type="submit">Save {type}</button>
+			</TransactionForm>
+		</TransactionPage>
 	);
 }
-const EntrancePage = styled.div`
+const TransactionPage = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -78,7 +85,7 @@ const EntrancePage = styled.div`
 		font-size: 30px;
 	}
 `;
-const EntranceForm = styled.form`
+const TransactionForm = styled.form`
 	display: flex;
 	flex-direction: column;
 	align-items: center;

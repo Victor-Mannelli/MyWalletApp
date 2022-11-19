@@ -3,9 +3,8 @@ import GlobalStyle from "./GlobalStyle"
 import Login from "./Routs/Login"
 import Receipt from "./Routs/Receipt"
 import Register from "./Routs/Register"
-import Entrance from "./Routs/Entrance"
-import Expense from "./Routs/Expense"
 import { ToastContainer } from "react-toastify"
+import Transactions from "./Routs/Transactions"
 
 export default function App() {
 	return (
@@ -14,8 +13,7 @@ export default function App() {
         <Route path="/" element={<Login />} />
         <Route path="/registration" element={<Register />} />
         <Route path="/receipt" element={<Receipt />} />
-        <Route path="/entrance" element={<Entrance />} />
-        <Route path="/expense" element={<Expense />} />
+        <Route path="/transactions/:type" element={<Transactions />} />
       </Routes>
       <GlobalStyle />
       <ToastContainer />

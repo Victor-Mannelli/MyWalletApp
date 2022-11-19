@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import dayjs from "dayjs"
 
-export default function Transaction({ price, description, type }) {
+export default function Transaction({ price, description, type, id }) {
     return (
-        <ReceiptLine>
+        <ReceiptLine id={id}>
             <div>
                 <Date> {dayjs().format("MM/DD")} </Date>
                 <Description> {description} </Description>
@@ -21,7 +21,8 @@ const ReceiptLine = styled.div`
 	display: flex;
 	justify-content: space-between;
 	padding-bottom: 15px;
-	color: var(--darkmode);
+	/* color: var(--darkmode); */
+    color: lightgray;
 
 	div {
 		display: flex;

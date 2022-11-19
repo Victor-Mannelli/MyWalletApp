@@ -12,7 +12,7 @@ import Transaction from "../transaction";
 export default function Receipt() {
 	const navigate = useNavigate();
 	const [transactions, setTransactions] = useState([]);
-	const username = localStorage.getItem("username")
+	const username = localStorage.getItem("username");
 
 	useEffect(() => {
 		axios
@@ -36,10 +36,16 @@ export default function Receipt() {
 		currency: "USD",
 	});
 
+	useEffect(() => {
+		
+		const element = document?.getElementById(transactions.length - 1);
+		element?.scrollIntoView();
+	});
+
 	return (
 		<ReceiptPage>
 			<Header>
-				<h1>Olá {username}</h1>
+				<h1>Welcome {username}</h1>
 				<BsDoorOpenFill
 					style={{ cursor: "pointer" }}
 					onClick={() => navigate("/")}
@@ -53,6 +59,7 @@ export default function Receipt() {
 						transactions.map((e, i) => (
 							<Transaction
 								key={i}
+								id={i}
 								price={e.price}
 								description={e.description}
 								type={e.type}
@@ -63,7 +70,11 @@ export default function Receipt() {
 				<ScreenFooter>
 					<h2> Balance </h2>
 					<h2
-						style={!current.includes("-") ? { color: "#03AC00" } : { color: "#C70000" }}
+						style={
+							!current.includes("-")
+								? { color: "#03AC00" }
+								: { color: "#C70000" }
+						}
 					>
 						{" "}
 						{transactions.lenght === 0 ? "Total" : current}{" "}
@@ -71,11 +82,11 @@ export default function Receipt() {
 				</ScreenFooter>
 			</Screen>
 			<Footer>
-				<div onClick={() => navigate("/entrance")}>
+				<div onClick={() => navigate("/transactions/entrance")}>
 					<BsPlusCircleDotted />
 					<p>New Entrance</p>
 				</div>
-				<div onClick={() => navigate("/expense")}>
+				<div onClick={() => navigate("/transactions/expense")}>
 					<BsDashCircleDotted />
 					<p>New Expenses</p>
 				</div>
@@ -112,6 +123,7 @@ const Header = styled.div`
 const Screen = styled.div`
 	position: relative;
 	background-color: lightgray;
+	background-color: #313537;
 	height: 70%;
 	width: 80%;
 	padding: 15px;
@@ -129,6 +141,7 @@ const ScreenFooter = styled.div`
 	justify-content: space-between;
 	padding: 15px;
 	color: var(--darkmode);
+	color: lightgray;
 `;
 const Footer = styled.div`
 	display: flex;
@@ -143,8 +156,10 @@ const Footer = styled.div`
 
 		width: 100%;
 		height: 100px;
-		background-color: lightgray;
-		color: var(--darkmode);
+		/* background-color: lightgray; */
+		background-color: #313537;
+		/* color: var(--darkmode); */
+		color: lightgray;
 		padding: 15px;
 		cursor: pointer;
 	}
