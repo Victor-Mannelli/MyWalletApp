@@ -6,7 +6,7 @@ import { GiReturnArrow } from "react-icons/gi";
 import { Slide, toast } from "react-toastify";
 import CurrencyInput from "../CurrencyInput";
 
-export default function Entrance() {
+export default function Transactions({pageTheme}) {
 	const [price, setPrice] = useState("");
 	const [description, setDescription] = useState("");
 	const { type } = useParams()
@@ -41,7 +41,7 @@ export default function Entrance() {
 			);
 	}
 	return (
-		<TransactionPage>
+		<TransactionPage pageTheme={pageTheme}>
 			<header>
 				<h1>New {type}</h1>
 				<GiReturnArrow
@@ -75,14 +75,14 @@ const TransactionPage = styled.div`
 	align-items: center;
 	width: 100%;
 	height: 100vh;
-	background-color: var(--darkmode);
+	background-color: ${props => props.pageTheme ? "#e8e6e3" : "#2c2c2c"};
+	color: ${props => props.pageTheme ? "2c2c2c" : "#e8e6e3"};
 	header {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		height: 100px;
+		height: 90px;
 		width: 80%;
-		color: white;
 		font-size: 30px;
 	}
 `;

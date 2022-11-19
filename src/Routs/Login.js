@@ -4,7 +4,7 @@ import { Slide, toast } from "react-toastify";
 import styled from "styled-components";
 import axios from "axios";
 
-export default function Login() {
+export default function Login({ pageTheme }) {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const navigate = useNavigate();
@@ -33,7 +33,7 @@ export default function Login() {
 			);
 	}
 	return (
-		<LoginPage>
+		<LoginPage pageTheme={pageTheme} >
 			<h1> My Wallet </h1>
 			<LoginForm onSubmit={HandleSubmit}>
 				<input
@@ -65,8 +65,8 @@ const LoginPage = styled.div`
 
 	width: 100%;
 	height: 100vh;
-	background-color: var(--darkmode);
-	color: white;
+	background-color: ${props => props.pageTheme ? "#e8e6e3" : "#2c2c2c"};
+	color: ${props => props.pageTheme ? "2c2c2c" : "#e8e6e3"};
 	font-size: 20px;
 	h1 {
 		font-size: 30px;

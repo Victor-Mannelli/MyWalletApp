@@ -61,7 +61,7 @@ const GlobalStyle = createGlobalStyle`
     }
     :root {
         --darkmode: #2c2c2c;
-        --lightmode: #fff
+        --lightmode: #e8e6e3;
     }
 `
 export default GlobalStyle

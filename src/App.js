@@ -1,19 +1,23 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
 import GlobalStyle from "./GlobalStyle"
 import Login from "./Routs/Login"
 import Receipt from "./Routs/Receipt"
 import Register from "./Routs/Register"
-import { ToastContainer } from "react-toastify"
 import Transactions from "./Routs/Transactions"
+import PageTheme from "./PageTheme"
+import { ToastContainer } from "react-toastify"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { useState } from "react"
 
 export default function App() {
+  const [pageTheme, setPageTheme] = useState(false)
 	return (
     <BrowserRouter>
+      <PageTheme pageTheme={pageTheme} setPageTheme={setPageTheme} />
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/registration" element={<Register />} />
-        <Route path="/receipt" element={<Receipt />} />
-        <Route path="/transactions/:type" element={<Transactions />} />
+        <Route path="/" element={<Login pageTheme={pageTheme} />} />
+        <Route path="/registration" element={<Register pageTheme={pageTheme} />} />
+        <Route path="/receipt" element={<Receipt pageTheme={pageTheme} />} />
+        <Route path="/transactions/:type" element={<Transactions pageTheme={pageTheme} />} />
       </Routes>
       <GlobalStyle />
       <ToastContainer />

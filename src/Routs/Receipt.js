@@ -9,7 +9,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Transaction from "../transaction";
 
-export default function Receipt() {
+export default function Receipt({pageTheme}) {
 	const navigate = useNavigate();
 	const [transactions, setTransactions] = useState([]);
 	const username = localStorage.getItem("username");
@@ -49,7 +49,7 @@ export default function Receipt() {
 	},[]);
 
 	return (
-		<ReceiptPage>
+		<ReceiptPage pageTheme={pageTheme}>
 			<Header>
 				<h1>Welcome {username}</h1>
 				<BsDoorOpenFill
@@ -57,13 +57,14 @@ export default function Receipt() {
 					onClick={() => navigate("/")}
 				/>
 			</Header>
-			<Screen>
+			<Screen pageTheme={pageTheme}>
 				<ScreenReceipt>
 					{transactions.lenght === 0 ? (
 						<p> There are no records of any transactions</p>
 					) : (
 						transactions.map((e, i) => (
 							<Transaction
+								pageTheme={pageTheme}
 								key={i}
 								id={i}
 								price={e.price}
@@ -73,7 +74,7 @@ export default function Receipt() {
 						))
 					)}
 				</ScreenReceipt>
-				<ScreenFooter>
+				<ScreenFooter pageTheme={pageTheme}>
 					<h2> Balance </h2>
 					<h2
 						style={
@@ -87,7 +88,7 @@ export default function Receipt() {
 					</h2>
 				</ScreenFooter>
 			</Screen>
-			<Footer>
+			<Footer pageTheme={pageTheme}>
 				<div onClick={() => navigate("/transactions/entrance")}>
 					<BsPlusCircleDotted />
 					<p>New Entrance</p>
@@ -108,8 +109,8 @@ const ReceiptPage = styled.div`
 
 	width: 100%;
 	height: 100vh;
-	background-color: var(--darkmode);
-	color: white;
+	background-color: ${props => props.pageTheme ? "#e8e6e3" : "#2c2c2c"};
+	color: ${props => props.pageTheme ? "#2c2c2c" : "#e8e6e3"};
 	font-size: 20px;
 	h1 {
 		font-size: 30px;
@@ -122,14 +123,13 @@ const ReceiptPage = styled.div`
 const Header = styled.div`
 	display: flex;
 	width: 80%;
-	height: 50px;
+	height: 70px;
 	justify-content: space-between;
 	align-items: center;
 `;
 const Screen = styled.div`
 	position: relative;
-	background-color: lightgray;
-	background-color: #313537;
+	background-color: ${props => props.pageTheme ? "#d3d3d3" : "#313537"};
 	height: 70%;
 	width: 80%;
 	padding: 15px;
@@ -146,8 +146,7 @@ const ScreenFooter = styled.div`
 	width: 100%;
 	justify-content: space-between;
 	padding: 15px;
-	color: var(--darkmode);
-	color: lightgray;
+	color: ${props => props.pageTheme ? "#2c2c2c" : "#e8e6e3"};
 `;
 const Footer = styled.div`
 	display: flex;
@@ -162,11 +161,10 @@ const Footer = styled.div`
 
 		width: 100%;
 		height: 100px;
-		/* background-color: lightgray; */
-		background-color: #313537;
-		/* color: var(--darkmode); */
-		color: lightgray;
 		padding: 15px;
+
+		background-color: ${props => props.pageTheme ? "#d3d3d3" : "#313537"};
+		color: ${props => props.pageTheme ? "#2c2c2c" : "#e8e6e3"};
 		cursor: pointer;
 	}
 	div:nth-child(1) {

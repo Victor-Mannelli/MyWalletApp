@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-export default function Register() {
+export default function Register({pageTheme}) {
 	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -40,7 +40,7 @@ export default function Register() {
 	}
 
 	return (
-		<LoginPage>
+		<LoginPage pageTheme={pageTheme}>
 			<h1> My Wallet </h1>
 			<LoginForm onSubmit={HandleSubmit}>
 				<input
@@ -86,8 +86,8 @@ const LoginPage = styled.div`
 
 	width: 100%;
 	height: 100vh;
-	background-color: var(--darkmode);
-	color: white;
+	background-color: ${props => props.pageTheme ? "#e8e6e3" : "#2c2c2c"};
+	color: ${props => props.pageTheme ? "2c2c2c" : "#e8e6e3"};
 	font-size: 20px;
 	h1 {
 		font-size: 30px;
