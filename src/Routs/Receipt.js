@@ -13,13 +13,18 @@ export default function Receipt() {
 	const navigate = useNavigate();
 	const [transactions, setTransactions] = useState([]);
 	const username = localStorage.getItem("username");
+	const token = localStorage.getItem("token")
 
 	useEffect(() => {
 		axios
-			.get("http://localhost:5000/receipt")
+			.get("http://localhost:5000/receipt", {
+				headers: {
+					Authorization: `Bearer ${token}`
+				}
+			})
 			.then((e) => setTransactions(e.data))
-			.catch((e) => console.log(e));
-
+			.catch((e) => console.log(e.response.data.message));
+ 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -40,7 +45,8 @@ export default function Receipt() {
 		
 		const element = document?.getElementById(transactions.length - 1);
 		element?.scrollIntoView();
-	});
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	},[]);
 
 	return (
 		<ReceiptPage>

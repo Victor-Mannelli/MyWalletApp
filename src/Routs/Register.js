@@ -18,18 +18,18 @@ export default function Register() {
 				position: "top-center",
 				theme: "dark",
 			});
-			return
+			return;
 		} else {
 			const user = { name, email, password, confirmPassword };
 			axios
 				.post("http://localhost:5000/register", user)
-				.then((e) =>
-					{toast.success(e.response.data.message, {
+				.then((e) => {
+					toast.success(e.data.message, {
 						position: "top-center",
 						theme: "dark",
 					});
-					navigate("/")}
-				)
+					navigate("/");
+				})
 				.catch((e) =>
 					toast.error(e.response.data.message, {
 						position: "top-center",

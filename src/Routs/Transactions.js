@@ -10,6 +10,7 @@ export default function Entrance() {
 	const [price, setPrice] = useState("");
 	const [description, setDescription] = useState("");
 	const { type } = useParams()
+	const token = localStorage.getItem("token")
 	const navigate = useNavigate();
 	
 	useEffect(() => {
@@ -20,7 +21,7 @@ export default function Entrance() {
 	
 	function HandleSubmit(e) {
 		e.preventDefault();
-		const transition = { price, description, type};
+		const transition = { token, price, description, type};
 		axios
 			.post("http://localhost:5000/transactions", transition)
 			.then((e) => {
