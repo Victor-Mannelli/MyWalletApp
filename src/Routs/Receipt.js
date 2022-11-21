@@ -6,14 +6,15 @@ import {
 } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Transaction from "../transaction";
+import UserContext from "../UserContext";
 
 export default function Receipt({pageTheme}) {
 	const navigate = useNavigate();
 	const [transactions, setTransactions] = useState([]);
+	const { token } = useContext(UserContext)
 	const username = localStorage.getItem("username");
-	const token = localStorage.getItem("token")
 
 	useEffect(() => {
 		axios
@@ -42,6 +43,7 @@ export default function Receipt({pageTheme}) {
 	});
 
 	useEffect(() => {
+		!token && navigate("/") 
 		
 		const element = document?.getElementById(transactions.length - 1);
 		element?.scrollIntoView();
@@ -54,7 +56,11 @@ export default function Receipt({pageTheme}) {
 				<h1>Welcome {username}</h1>
 				<BsDoorOpenFill
 					style={{ cursor: "pointer" }}
-					onClick={() => navigate("/")}
+					onClick={() => {
+						localStorage.removeItem("token")
+						localStorage.removeItem("username")
+						navigate("/")
+					}}
 				/>
 			</Header>
 			<Screen pageTheme={pageTheme}>

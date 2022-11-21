@@ -1,13 +1,21 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Slide, toast } from "react-toastify";
+import UserContext from "../UserContext";
 import styled from "styled-components";
 import axios from "axios";
 
 export default function Login({ pageTheme }) {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const { setToken } = useContext(UserContext)
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		localStorage.getItem("token") !== null && navigate("/receipt")
+	  
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
 
 	function HandleSubmit(e) {
 		e.preventDefault();
@@ -21,7 +29,8 @@ export default function Login({ pageTheme }) {
 					autoClose: 500,
 					transition: Slide
 				});
-				localStorage.setItem("token", e.data.token, e.data.name);
+				setToken(e.data.token)
+				localStorage.setItem("token", e.data.token);
 				localStorage.setItem("username", e.data.user.name);
 				navigate("/receipt")
 			})

@@ -1,22 +1,24 @@
 import styled from "styled-components";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { GiReturnArrow } from "react-icons/gi";
 import { Slide, toast } from "react-toastify";
 import CurrencyInput from "../CurrencyInput";
+import UserContext from "../UserContext";
 
 export default function Transactions({pageTheme}) {
 	const [price, setPrice] = useState("");
 	const [description, setDescription] = useState("");
 	const { type } = useParams()
-	const token = localStorage.getItem("token")
+	const { token } = useContext(UserContext)
 	const navigate = useNavigate();
 	
 	useEffect(() => {
 		if (type !== "entrance" && type !== "expense") navigate("/receipt")
-
-	// eslint-disable-next-line react-hooks/exhaustive-deps
+		if (token === "") navigate("/")
+		
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 	
 	function HandleSubmit(e) {
