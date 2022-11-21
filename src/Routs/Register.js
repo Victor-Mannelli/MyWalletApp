@@ -73,7 +73,7 @@ export default function Register({pageTheme}) {
 				/>
 				<button type="submit"> Register </button>
 			</LoginForm>
-			<p onClick={() => navigate("/")}>First Time? Register now!</p>
+			<p onClick={() => navigate("/")}>Already have an account? Sign In!</p>
 		</LoginPage>
 	);
 }

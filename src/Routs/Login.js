@@ -62,7 +62,7 @@ export default function Login({ pageTheme }) {
 				/>
 				<button type="submit">Log in</button>
 			</LoginForm>
-			<p onClick={() => navigate("/registration")}>First Time? Signup!</p>
+			<p onClick={() => navigate("/registration")}>First Time? Register now!</p>
 		</LoginPage>
 	);
 }
@@ -76,7 +76,7 @@ const LoginPage = styled.div`
 	width: 100%;
 	height: 100vh;
 	background-color: ${props => props.pageTheme ? "#e8e6e3" : "#2c2c2c"};
-	color: ${props => props.pageTheme ? "2c2c2c" : "#e8e6e3"};
+	color: ${props => props.pageTheme ? "#2c2c2c" : "#e8e6e3"};
 	font-size: 20px;
 	h1 {
 		font-size: 30px;
