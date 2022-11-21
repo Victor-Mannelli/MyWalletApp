@@ -29,6 +29,7 @@ export default function Login({ pageTheme }) {
 					autoClose: 500,
 					transition: Slide
 				});
+				console.log(e)
 				setToken(e.data.token)
 				localStorage.setItem("token", e.data.token);
 				localStorage.setItem("username", e.data.user.name);

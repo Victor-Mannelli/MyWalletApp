@@ -17,7 +17,6 @@ export default function Transactions({pageTheme}) {
 	useEffect(() => {
 		if (type !== "entrance" && type !== "expense") navigate("/receipt")
 		if (token === "") navigate("/")
-		
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 	

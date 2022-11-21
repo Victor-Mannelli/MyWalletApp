@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import { BsFillSunFill } from "react-icons/bs";
 import { MdDarkMode } from "react-icons/md";
+import { useLocation } from "react-router-dom";
 
 export default function PageTheme({ pageTheme, setPageTheme }) {
+	console.log(useLocation)
 	return pageTheme === false ? (
 		<LightMode onClick={() => setPageTheme(!pageTheme)} />
 	) : (
